@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TourBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="goroda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gorodaa" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="otvetstv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIOo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="otziv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="programma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="programmaa" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statuss" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tour">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="napravlenie_id" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="hotel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="proggrama_id" Type="int" Nullable="false" />
+          <Property Name="sroki_pri" Type="date" Nullable="false" />
+          <Property Name="sroki_ot" Type="date" Nullable="false" />
+          <Property Name="otvetstv_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tur_goroda">
+          <End Role="goroda" Type="Self.goroda" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="goroda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="napravlenie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tur_otvetstv">
+          <End Role="otvetstv" Type="Self.otvetstv" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otvetstv">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="otvetstv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tur_programma">
+          <End Role="programma" Type="Self.programma" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="proggrama_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tur_status">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TourBaseModelContainer">
+          <EntitySet Name="goroda" EntityType="Self.goroda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="otvetstv" EntityType="Self.otvetstv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="otziv" EntityType="Self.otziv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="programma" EntityType="Self.programma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tour" EntityType="Self.tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tur_goroda" Association="Self.FK_tur_goroda">
+            <End Role="goroda" EntitySet="goroda" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tur_otvetstv" Association="Self.FK_tur_otvetstv">
+            <End Role="otvetstv" EntitySet="otvetstv" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tur_programma" Association="Self.FK_tur_programma">
+            <End Role="programma" EntitySet="programma" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tur_status" Association="Self.FK_tur_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TourBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="goroda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gorodaa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tour" Relationship="Self.FK_tur_goroda" FromRole="goroda" ToRole="tour" />
+        </EntityType>
+        <EntityType Name="otvetstv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIOo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tour" Relationship="Self.FK_tur_otvetstv" FromRole="otvetstv" ToRole="tour" />
+        </EntityType>
+        <EntityType Name="otziv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="programma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="programmaa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tour" Relationship="Self.FK_tur_programma" FromRole="programma" ToRole="tour" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statuss" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tour" Relationship="Self.FK_tur_status" FromRole="status" ToRole="tour" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tour">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="napravlenie_id" Type="Int32" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="hotel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="proggrama_id" Type="Int32" Nullable="false" />
+          <Property Name="sroki_pri" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="sroki_ot" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="otvetstv_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="goroda" Relationship="Self.FK_tur_goroda" FromRole="tour" ToRole="goroda" />
+          <NavigationProperty Name="otvetstv" Relationship="Self.FK_tur_otvetstv" FromRole="tour" ToRole="otvetstv" />
+          <NavigationProperty Name="programma" Relationship="Self.FK_tur_programma" FromRole="tour" ToRole="programma" />
+          <NavigationProperty Name="status" Relationship="Self.FK_tur_status" FromRole="tour" ToRole="status" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tur_goroda">
+          <End Role="goroda" Type="Self.goroda" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="goroda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="napravlenie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tur_otvetstv">
+          <End Role="otvetstv" Type="Self.otvetstv" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otvetstv">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="otvetstv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tur_programma">
+          <End Role="programma" Type="Self.programma" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="proggrama_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tur_status">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TourBaseEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="goroda" EntityType="Self.goroda" />
+          <EntitySet Name="otvetstv" EntityType="Self.otvetstv" />
+          <EntitySet Name="otziv" EntityType="Self.otziv" />
+          <EntitySet Name="programma" EntityType="Self.programma" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tour" EntityType="Self.tour" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_tur_goroda" Association="Self.FK_tur_goroda">
+            <End Role="goroda" EntitySet="goroda" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tur_otvetstv" Association="Self.FK_tur_otvetstv">
+            <End Role="otvetstv" EntitySet="otvetstv" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tur_programma" Association="Self.FK_tur_programma">
+            <End Role="programma" EntitySet="programma" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tur_status" Association="Self.FK_tur_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TourBaseModelContainer" CdmEntityContainer="TourBaseEntities1">
+          <EntitySetMapping Name="goroda">
+            <EntityTypeMapping TypeName="TourBaseModel.goroda">
+              <MappingFragment StoreEntitySet="goroda">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="gorodaa" ColumnName="gorodaa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="otvetstv">
+            <EntityTypeMapping TypeName="TourBaseModel.otvetstv">
+              <MappingFragment StoreEntitySet="otvetstv">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FIOo" ColumnName="FIOo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="otziv">
+            <EntityTypeMapping TypeName="TourBaseModel.otziv">
+              <MappingFragment StoreEntitySet="otziv">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="programma">
+            <EntityTypeMapping TypeName="TourBaseModel.programma">
+              <MappingFragment StoreEntitySet="programma">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="programmaa" ColumnName="programmaa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="TourBaseModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="statuss" ColumnName="statuss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TourBaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tour">
+            <EntityTypeMapping TypeName="TourBaseModel.tour">
+              <MappingFragment StoreEntitySet="tour">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="napravlenie_id" ColumnName="napravlenie_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="hotel" ColumnName="hotel" />
+                <ScalarProperty Name="proggrama_id" ColumnName="proggrama_id" />
+                <ScalarProperty Name="sroki_pri" ColumnName="sroki_pri" />
+                <ScalarProperty Name="sroki_ot" ColumnName="sroki_ot" />
+                <ScalarProperty Name="otvetstv_id" ColumnName="otvetstv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="TourBaseModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
